@@ -6,7 +6,7 @@ const buttonStl: {
     type: "inputNumber",
   },
   height: {
-    label: "宽",
+    label: "高",
     type: "inputNumber",
   },
   top: {

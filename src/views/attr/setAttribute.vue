@@ -35,6 +35,7 @@ import { defineComponent, reactive, toRefs, watch } from "vue";
 import { useStore } from "vuex";
 import { listTypes } from "@/types";
 import useAction from "@/hooks/useAction";
+import customConsts from "@/consts/customConsts";
 
 export default defineComponent({
   setup() {
@@ -56,12 +57,15 @@ export default defineComponent({
             components.find((item: listTypes) => item.uuid === uuid) ?? {};
           const { key, attr } = component;
           if (key) {
-            import(`@/consts/customConsts/${key}/attr`).then(
-              (res: any): void => {
-                data.attr = attr;
-                data.attrList = res?.default;
-              }
-            );
+            // 动态引入部署服务器导致资源找不到，我人傻了
+            // import(`@/consts/customConsts/${key}/attr`).then(
+            //   (res: any): void => {
+            //     data.attr = attr;
+            //     data.attrList = res?.default;
+            //   }
+            // );
+            data.attr = attr;
+            data.attrList = customConsts?.[key]?.attr;
           } else {
             data.attr = {};
             data.attrList = {};
