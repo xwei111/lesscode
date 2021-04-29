@@ -1,0 +1,106 @@
+html,
+body,
+ul,
+li,
+ol,
+dl,
+dd,
+dt,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+img,
+p,
+span,
+div,
+table,
+tr,
+td,
+article,
+footer,
+header,
+nav,
+audio,
+video,
+textarea,
+button,
+input {
+  margin: 0;
+  padding: 0;
+}
+fieldset,
+img,
+input,
+button {
+  outline-style: none;
+  border: none;
+}
+ul,
+li,
+ol {
+  list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-decoration: none;
+}
+img {
+  border: none;
+  vertical-align: middle;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  display: flex;
+  font-size: 14px;
+  background: #f7f7f7;
+  color: #3f536e;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+table {
+  border-collapse: collapse;
+}
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+// element-plus
+.el-scrollbar {
+  .el-scrollbar__thumb {
+    background-color: #666;
+  }
+}
+.el-slider__runway {
+  height: 3px;
+}
+.el-slider__bar {
+  height: 3px;
+}
+// animation
+.bounce-enter-active,
+.bounce-leave-active {
+  transition: all 0.2s ease-in;
+}
+.bounce-enter-from,
+.bounce-leave-to {
+  transform: translateY(-1000px);
+  opacity: 0;
+}
