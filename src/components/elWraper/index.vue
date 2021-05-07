@@ -51,9 +51,9 @@ export default defineComponent({
       } = e;
       const currentEl =
         state.components.find((item: any) => item.uuid === uuid) ?? {};
-      const {
-        style: { top, left },
-      } = currentEl;
+      const { style } = currentEl;
+      const { top, left } = style ?? {};
+      if (top === undefined || left === undefined) return;
       const startY = Number(e.clientY);
       const startX = Number(e.clientX);
       // 记录uuid

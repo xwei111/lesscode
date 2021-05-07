@@ -1,0 +1,99 @@
+@charset "UTF-8";
+/* 白舟角崩朱文 */
+@font-face {
+  font-family: "白舟角崩朱文";
+  src: url("https://chasejourney.top/fonts/白舟角崩朱文.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 方正FW筑紫古典L黑 简 */
+@font-face {
+  font-family: "FZFWZhuZGDLHJW";
+  src: url("https://chasejourney.top/fonts/FZFWZhuZGDLHJW.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 夏行楷 */
+@font-face {
+  font-family: "SlidexiaxingRegular";
+  src: url("https://chasejourney.top/fonts/SlidexiaxingRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 标题黑 */
+@font-face {
+  font-family: "ysbth";
+  src: url("https://chasejourney.top/fonts/ysbth.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 庞门正道轻松体 */
+@font-face {
+  font-family: "pmzdqs";
+  src: url("https://chasejourney.top/fonts/pmzdqs.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 江西拙楷 */
+@font-face {
+  font-family: "jiangxzk";
+  src: url("https://chasejourney.top/fonts/jiangxzk.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 沐瑶随心手写 */
+@font-face {
+  font-family: "muyao";
+  src: url("https://chasejourney.top/fonts/muyao.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 沐瑶-Softbrush */
+@font-face {
+  font-family: "Muyao-Softbrush";
+  src: url("https://chasejourney.top/fonts/Muyao-Softbrush.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 手写体 */
+@font-face {
+  font-family: "shoushuti";
+  src: url("https://chasejourney.top/fonts/shoushuti.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 春风楷 */
+@font-face {
+  font-family: "SlidechunfengRegular";
+  src: url("https://chasejourney.top/fonts/SlidechunfengRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 思源黑体 */
+@font-face {
+  font-family: "SourceHanSansCN-Regular";
+  src: url("https://chasejourney.top/fonts/SourceHanSansCN-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 杨任东竹石体 */
+@font-face {
+  font-family: "yrdzst_Extralight";
+  src: url("https://chasejourney.top/fonts/yrdzst_Extralight.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 站酷文艺体 */
+@font-face {
+  font-family: "zkwyt";
+  src: url("https://chasejourney.top/fonts/zkwyt.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 站酷小微LOGO体 */
+@font-face {
+  font-family: "zkxwt";
+  src: url("https://chasejourney.top/fonts/zkxwt.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

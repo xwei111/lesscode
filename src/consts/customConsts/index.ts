@@ -10,14 +10,14 @@ import textStl from "./text/stl";
 export default {
   button: {
     attr: buttonAttr,
-    stl: buttonStl
+    stl: buttonStl,
   },
   rect: {
     attr: rectAttr,
-    stl: rectStl
+    stl: rectStl,
   },
   text: {
     attr: TextAttr,
-    stl: textStl
-  }
-} as any
+    stl: textStl,
+  },
+} as any;

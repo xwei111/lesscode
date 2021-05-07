@@ -2,7 +2,14 @@
   <ul>
     <li v-for="item in Object.keys(style)" :key="item">
       <p class="style-label">{{ styleList?.[item]?.label }}:</p>
+      <el-input
+        style="width: 100%"
+        v-if="styleList?.[item]?.type === 'input'"
+        v-model="style[item]"
+        @change="addAction"
+      />
       <el-input-number
+        style="width: 100%"
         v-if="styleList?.[item]?.type === 'inputNumber'"
         v-model="style[item]"
         :label="styleList?.[item].label"
@@ -27,6 +34,12 @@
         >
         </el-option>
       </el-select>
+      <p class="style-warning" v-if="styleList?.[item]?.warning">
+        {{ styleList?.[item]?.warning }}
+      </p>
+      <p class="style-info" v-if="styleList?.[item]?.info">
+        {{ styleList?.[item]?.info }}
+      </p>
     </li>
   </ul>
 </template>
@@ -83,5 +96,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 .style-label {
   padding: 15px 0;
+}
+.style-warning {
+  padding-top: 10px;
+  font-size: 12px;
+  color: #e6a23c;
+}
+.style-info {
+  padding-top: 10px;
+  font-size: 12px;
+  color: #409eff;
 }
 </style>

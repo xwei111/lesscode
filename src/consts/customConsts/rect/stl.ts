@@ -39,6 +39,19 @@ const rectStl: {
       { value: "double", label: "double" },
     ],
   },
+  "border-radius": {
+    label: "圆角",
+    type: "inputNumber",
+  },
+  rotate: {
+    label: "旋转角度",
+    type: "inputNumber",
+  },
+  "box-shadow": {
+    label: "阴影",
+    type: "input",
+    info: "例：0px 0px 10px #f00",
+  },
 };
 
 export default rectStl;
