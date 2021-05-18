@@ -1,6 +1,6 @@
-const buttonAttr: {
-  [key: string]: any;
-} = {
+import { configTypes } from "@/types";
+
+const buttonAttr: configTypes = {
   text: {
     label: "文案",
     type: "input",
@@ -8,6 +8,7 @@ const buttonAttr: {
   icon: {
     label: "图标",
     type: "input",
+    info: "前往element-plus选择icon",
   },
   size: {
     label: "尺寸",

@@ -37,9 +37,9 @@ export default defineComponent({
   },
   setup(props: any) {
     const { state } = useStore();
-    const visible = ref(false);
-    const components = ref([]);
-    const selectVal = ref();
+    const visible = ref<boolean>(false);
+    const components = ref<Array<any>>([]);
+    const selectVal = ref<string>();
 
     watch(
       () => visible.value,

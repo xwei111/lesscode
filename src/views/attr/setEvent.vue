@@ -1,7 +1,7 @@
 <template>
   <ul>
     <p class="event-info">交互在预览模式下生效</p>
-    <li v-for="item in Object.keys(events)" :key="item">
+    <li v-for="item in Object.keys(events ?? {})" :key="item">
       <el-collapse v-model="activeNames" @change="handleChange" accordion>
         <el-collapse-item :title="events?.[item]?.label" :name="item">
           <div
@@ -71,14 +71,21 @@ export default defineComponent({
   setup() {
     const { addAction } = useAction();
     const { state } = useStore();
-    const data = reactive({
+    const data = reactive<{
+      events: {
+        [key: string]: any;
+      };
+      activeNames: string;
+      eventType: string;
+      attrUuid: string;
+    }>({
       events: {},
-      activeNames: null,
+      activeNames: "",
       eventType: "",
       attrUuid: "",
     });
-    const modalRef = ref();
-    const attrModalRef = ref();
+    const modalRef = ref<any>();
+    const attrModalRef = ref<any>();
     watch(
       [() => state.attrVisible, () => state.uuid, () => state.actionIndex],
       ([visible, uuid]) => {

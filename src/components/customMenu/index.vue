@@ -2,12 +2,12 @@
   <ul
     class="custom-menu"
     v-show="state.showCustomMenu"
-    :style="`left: ${state.mousePos.left}px; top: ${state.mousePos.top}px;`"
+    :style="`left: ${state?.mousePos?.left}px; top: ${state?.mousePos?.top}px;`"
   >
     <li
       v-for="item in customMenus"
-      :key="item.key"
-      @click="() => selectHandle(item.key)"
+      :key="item?.key"
+      @click="() => selectHandle(item?.key)"
     >
       {{ item.label }}
     </li>

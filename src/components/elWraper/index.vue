@@ -3,25 +3,25 @@
     <div
       class="el-wraper"
       v-for="(item, index) in state.components"
-      :key="item.uuid"
-      :style="`${getWraperStl(item.style)}z-index: ${index + 1};`"
+      :key="item?.uuid"
+      :style="`${getWraperStl(item?.style)}z-index: ${index + 1};`"
     >
       <component
         style="position: static"
         :data="item"
-        :id="item.uuid"
-        :is="item.template"
-        :attr="item.attr"
-        :style="`${getStl(item.style)}`"
-        :events="item.events"
+        :id="item?.uuid"
+        :is="item?.template"
+        :attr="item?.attr"
+        :style="`${getStl(item?.style)}`"
+        :events="item?.events"
       ></component>
       <div
         v-show="!state.isPreview"
         class="el-wraper-mark"
-        :data-uuid="item.uuid"
-        @click.stop="() => clickHandle(item.uuid)"
+        :data-uuid="item?.uuid"
+        @click.stop="() => clickHandle(item?.uuid)"
       ></div>
-      <Border v-show="state.uuid === item.uuid" :data-uuid="item.uuid" />
+      <Border v-show="state.uuid === item?.uuid" :data-uuid="item?.uuid" />
     </div>
   </div>
 </template>
@@ -59,7 +59,7 @@ export default defineComponent({
       // 记录uuid
       commit("set_uuid", uuid);
       // 鼠标移动
-      const move = (ev: any) => {
+      const move = (ev: any): void => {
         isMove.value = true;
         const currentY = Number(ev.clientY);
         const currentX = Number(ev.clientX);
@@ -71,7 +71,7 @@ export default defineComponent({
         commit("move", { currentTop, currentLeft, uuid });
       };
       // 鼠标抬起
-      const up = () => {
+      const up = (): void => {
         commit("stop");
         // 元素有移动留存快照留存
         isMove.value && addAction();
@@ -84,6 +84,7 @@ export default defineComponent({
     };
     // 自定义右键菜单
     const contextmenu = (e: any): void => {
+      if (state.isPreview) return;
       let top: number, left: number;
       const {
         target: {
@@ -99,7 +100,7 @@ export default defineComponent({
       if (clientWidth - clientX < 60) {
         left = clientX - 60;
       }
-      // 底部惨淡不足以展示菜单
+      // 底部不足以展示菜单
       if (clientHeight - clientY < customMenus.length * 36) {
         top = clientY - customMenus.length * 36;
       }

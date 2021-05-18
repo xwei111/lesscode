@@ -1,20 +1,33 @@
 <template>
-  <div id="edit-wraper" :style="`transform: scale(${store.state.percent})`">
-    <div
-      class="edit"
-      :style="`width: ${store.state.width}px; height: ${store.state.height}px; left: ${left}px; top: ${top}px`"
-      @dragover="dragoverHandle"
-      @drop="dropHandle"
-      @click="clickHandle"
-      @mousedown="mousedown"
-    >
-      <ElWraper />
-      <Lines />
+  <div id="edit-wraper">
+    <div :class="!state.isPreview ? 'edit-box' : 'edit-preview'">
+      <div
+        id="edit"
+        class="edit"
+        :style="`
+          width: ${state?.width}px; 
+          height: ${state?.height}px;
+          transform: scale(${state?.percent});
+          background: ${state?.canvasBg};
+          ${
+            !state.isPreview
+              ? `top: ${state.top}px; left: ${state.left}px; position: relative; `
+              : 'margin: 0 auto;'
+          };
+        `"
+        @dragover="dragoverHandle"
+        @drop="dropHandle"
+        @click="clickHandle"
+        @mousedown="mousedown"
+      >
+        <ElWraper />
+        <Lines />
+      </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import ElWraper from "@/components/elWraper/index.vue";
 import Lines from "@/components/lines/index.vue";
 import { list } from "@/consts/comsList";
@@ -30,13 +43,13 @@ export default defineComponent({
     Lines,
   },
   setup() {
-    const store = useStore();
+    const { state, commit } = useStore();
     const { addAction } = useAction();
     const dragoverHandle = (e: any): void => {
       e.preventDefault();
     };
-    const top = ref(0);
-    const left = ref(0);
+    // const top = ref<number>(0);
+    // const left = ref<number>(0);
     // 鼠标放下添加组件信息
     const dropHandle = (e: any): void => {
       e.preventDefault();
@@ -46,7 +59,7 @@ export default defineComponent({
         (item: any) => item.key === key
       );
       if (component) {
-        let components: Array<listTypes> = _.cloneDeep(store.state.components);
+        let components: Array<listTypes> = state.components;
         const cpCom: any = _.cloneDeep(component);
         cpCom.uuid = `${cpCom?.key}--${uuidv4()}`;
         if (!cpCom.style) {
@@ -54,29 +67,31 @@ export default defineComponent({
         }
         cpCom.style.top = e.offsetY;
         cpCom.style.left = e.offsetX;
+        // 收集拖拽组件信息
         components.push(cpCom);
-        store.commit("set_components", components);
+        // 记录快照
         addAction();
       }
     };
 
     const clickHandle = (): void => {
-      store.commit("set_uuid", "");
-      store.commit("set_attrVisible", false);
+      commit("set_uuid", "");
+      commit("set_attrVisible", false);
     };
 
-    const mousedown = (e: any) => {
+    const mousedown = (e: any): void => {
+      if (state.isPreview) return;
       const startY = Number(e.clientY);
       const startX = Number(e.clientX);
-      const t = top.value;
-      const l = left.value;
-      const move = (ev: any) => {
+      const t: number = state.top;
+      const l: number = state.left;
+      const move = (ev: any): void => {
         const currentY = Number(ev.clientY);
         const currentX = Number(ev.clientX);
-        top.value = t + currentY - startY;
-        left.value = l + currentX - startX;
+        state.top = t + currentY - startY;
+        state.left = l + currentX - startX;
       };
-      const up = () => {
+      const up = (): void => {
         document.removeEventListener("mousemove", move);
         document.removeEventListener("mouseup", up);
       };
@@ -85,13 +100,11 @@ export default defineComponent({
     };
 
     return {
-      top,
-      left,
       mousedown,
       dragoverHandle,
       dropHandle,
       clickHandle,
-      store,
+      state,
     };
   },
 });
@@ -99,15 +112,23 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 #edit-wraper {
-  flex: 1;
-  display: flex;
-  align-content: center;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
   background: #f7f7f7;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  .edit-box {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  .edit-preview {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
   .edit {
-    position: relative;
-    background: #fff;
     .edit-el-mark {
       position: absolute;
       width: 100%;

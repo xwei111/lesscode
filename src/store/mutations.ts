@@ -81,6 +81,18 @@ const mutations = {
   [types.set_height](state: { [key: string]: any }, height: number): void {
     state.height = height;
   },
+  // 画布背景色
+  [types.set_canvasBg](state: { [key: string]: any }, canvasBg: string): void {
+    state.canvasBg = canvasBg;
+  },
+  // 画布top
+  [types.set_top](state: { [key: string]: any }, top: number): void {
+    state.top = top;
+  },
+  // 画布left
+  [types.set_left](state: { [key: string]: any }, left: number): void {
+    state.left = left;
+  },
 };
 
 export default mutations;

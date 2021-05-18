@@ -12,3 +12,6 @@ export const attrVisible = (state: any): boolean => state.attrVisible;
 export const isPreview = (state: any): boolean => state.isPreview;
 export const width = (state: any): number => state.width;
 export const height = (state: any): number => state.height;
+export const canvasBg = (state: any): string => state.canvasBg;
+export const top = (state: any): number => state.top;
+export const left = (state: any): number => state.left;

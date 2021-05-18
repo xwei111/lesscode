@@ -5,5 +5,7 @@ declare module '*.vue' {
   export default component
 }
 
-declare module 'uuid'
-declare const _: any
+declare module 'uuid';
+declare module 'dom-to-image';
+declare module 'save-as';
+declare const _: any;

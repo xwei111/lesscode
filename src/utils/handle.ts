@@ -1,6 +1,6 @@
 import { listTypes } from "@/types";
 import store from "../store";
-
+// 点击事件（此处以对其他元素属性的影响为demo）
 export const clickHandle = (data: listTypes): void => {
   const {
     state: { components },

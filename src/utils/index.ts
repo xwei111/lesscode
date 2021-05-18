@@ -1,4 +1,5 @@
 import { styleTypes } from "@/types";
+
 const getEllipsis = (num: number): string => {
   if (num > 1) {
     return `overflow: hidden;

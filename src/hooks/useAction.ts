@@ -4,7 +4,7 @@ import { ElMessage } from "element-plus";
 
 export default (): any => {
   const store = useStore();
-
+  // 添加快照
   const addAction = (): void => {
     const {
       state: { actionIndex, actionComs, components },
@@ -22,7 +22,7 @@ export default (): any => {
       });
     }
   };
-
+  // 后退
   const backHandle = (): void => {
     const {
       state: { actionComs, actionIndex },
@@ -36,7 +36,7 @@ export default (): any => {
       commit("set_components", _.cloneDeep(actionComs[index - 1]) ?? []);
     }
   };
-
+  // 前进
   const forwardHandle = (): void => {
     const {
       state: { actionComs, actionIndex },
@@ -50,7 +50,7 @@ export default (): any => {
       commit("set_components", _.cloneDeep(actionComs[index - 1]) ?? []);
     }
   };
-
+  // 清空
   const clearHandle = (): void => {
     const { commit } = store;
     commit("set_actionIndex", 0);

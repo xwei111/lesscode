@@ -9,7 +9,12 @@
             :data-key="item.key"
             draggable="true"
           >
-            <div class="list-item-box">{{ item.title }}</div>
+            <div class="list-item-box">
+              <svg class="icon svg-icon list-icon" aria-hidden="true">
+                <use :xlink:href="`#${item.icon}`"></use>
+              </svg>
+              {{ item.title }}
+            </div>
           </li>
         </ul>
       </el-scrollbar>
@@ -72,7 +77,7 @@ export default defineComponent({
   z-index: 9;
   top: 60px;
   left: 10px;
-  width: 300px;
+  width: 70px;
   height: 800px;
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0px 10px 0px #999;
@@ -83,13 +88,21 @@ export default defineComponent({
     .list-items {
       width: 100%;
       height: auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
       li {
-        padding: 5px 20px;
+        width: 100%;
+        box-sizing: border-box;
         .list-item-box {
-          padding: 5px 15px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding-top: 20px;
+          .list-icon {
+            margin-bottom: 10px;
+          }
         }
       }
     }

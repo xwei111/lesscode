@@ -1,13 +1,15 @@
 <template>
   <ul>
-    <li v-for="item in Object.keys(style)" :key="item">
+    <li v-for="item in Object.keys(style ?? {})" :key="item">
       <p class="style-label">{{ styleList?.[item]?.label }}:</p>
+      <!-- input -->
       <el-input
         style="width: 100%"
         v-if="styleList?.[item]?.type === 'input'"
         v-model="style[item]"
         @change="addAction"
       />
+      <!-- inputNumber -->
       <el-input-number
         style="width: 100%"
         v-if="styleList?.[item]?.type === 'inputNumber'"
@@ -15,25 +17,28 @@
         :label="styleList?.[item].label"
         @change="addAction"
       ></el-input-number>
+      <!-- colorPicker -->
       <el-color-picker
         v-if="styleList?.[item]?.type === 'colorPicker'"
         v-model="style[item]"
         @change="addAction"
       ></el-color-picker>
+      <!-- select -->
       <el-select
         style="width: 100%"
-        v-if="styleList[item]?.type === 'select'"
+        v-if="styleList?.[item]?.type === 'select'"
         v-model="style[item]"
         @change="addAction"
       >
         <el-option
-          v-for="item in styleList[item]?.enum"
+          v-for="item in styleList?.[item]?.enum"
           :key="item.value"
           :label="item.label"
           :value="item.value"
         >
         </el-option>
       </el-select>
+      <!-- 提示信息 -->
       <p class="style-warning" v-if="styleList?.[item]?.warning">
         {{ styleList?.[item]?.warning }}
       </p>
@@ -55,7 +60,14 @@ export default defineComponent({
     const { addAction } = useAction();
     const store = useStore();
     const { state } = store;
-    const data = reactive({
+    const data = reactive<{
+      style: {
+        [key: string]: any;
+      };
+      styleList: {
+        [key: string]: any;
+      };
+    }>({
       style: {},
       styleList: {},
     });

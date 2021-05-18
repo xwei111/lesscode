@@ -1,5 +1,5 @@
-const rectAttr: {
-  [key: string]: any;
-} = {};
+import { configTypes } from "@/types";
+
+const rectAttr: configTypes = {};
 
 export default rectAttr;

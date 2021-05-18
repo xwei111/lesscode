@@ -1,6 +1,6 @@
-const rectStl: {
-  [key: string]: any;
-} = {
+import { configTypes } from "@/types";
+
+const rectStl: configTypes = {
   width: {
     label: "宽",
     type: "inputNumber",

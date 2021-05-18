@@ -11,3 +11,6 @@ export const set_attrVisible = "set_attrVisible";
 export const set_isPreview = "set_isPreview";
 export const set_width = "set_width";
 export const set_height = "set_height";
+export const set_canvasBg = "set_canvasBg";
+export const set_top = "set_top";
+export const set_left = "set_left";

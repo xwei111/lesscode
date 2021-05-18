@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "dom-to-image": "^2.6.0",
     "element-plus": "^1.0.2-beta.40",
     "lodash": "^4.17.21",
+    "save-as": "^0.1.8",
     "uuid": "^8.3.2",
     "vue": "^3.0.0",
+    "vue-qr": "^2.4.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },

@@ -43,9 +43,16 @@ export default defineComponent({
   },
   setup(props: any) {
     const { state } = useStore();
-    const visible = ref(false);
-    const selectVal = ref();
-    const data = reactive({
+    const visible = ref<boolean>(false);
+    const selectVal = ref<string>();
+    const data = reactive<{
+      attr: {
+        [key: string]: any;
+      };
+      attrList: {
+        [key: string]: any;
+      };
+    }>({
       attr: {},
       attrList: {},
     });
@@ -83,7 +90,7 @@ export default defineComponent({
       }
     );
 
-    const sureHandle = () => {
+    const sureHandle = (): void => {
       if (!selectVal.value) {
         ElMessage.info("请选择元素");
         return;

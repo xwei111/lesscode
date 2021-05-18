@@ -43,7 +43,9 @@ export default defineComponent({
   },
   setup() {
     const { state } = useStore();
-    const data = reactive({
+    const data = reactive<{
+      activeName: string;
+    }>({
       activeName: "attribute",
     });
 
@@ -63,7 +65,7 @@ export default defineComponent({
   z-index: 9;
   top: 60px;
   right: 10px;
-  width: 300px;
+  width: 260px;
   height: 800px;
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0px 10px 0px #999;

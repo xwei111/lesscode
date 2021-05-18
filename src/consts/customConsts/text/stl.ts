@@ -1,6 +1,6 @@
-const textStl: {
-  [key: string]: any;
-} = {
+import { configTypes } from "@/types";
+
+const textStl: configTypes = {
   width: {
     label: "宽",
     type: "inputNumber",
@@ -126,7 +126,7 @@ const textStl: {
       { value: "zkwyt", label: "站酷文艺体" },
       { value: "zkxwt", label: "站酷小微LOGO体" },
     ],
-    info: "资源存放于github，加载会比较慢，耐心等待",
+    warning: "部分字体资源存放于github，加载会比较慢，耐心等待",
   },
 };
 

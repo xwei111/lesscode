@@ -1,6 +1,6 @@
-const buttonStl: {
-  [key: string]: any;
-} = {
+import { configTypes } from "@/types";
+
+const buttonStl: configTypes = {
   width: {
     label: "宽",
     type: "inputNumber",

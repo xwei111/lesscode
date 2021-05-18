@@ -6,7 +6,7 @@
     <Attr :height="wraperHeight" />
     <CustomMenu />
     <div
-      class="canclePreview"
+      class="pre-btn canclePreview"
       v-show="store.state.isPreview"
       @click="editHandle"
     >
@@ -24,6 +24,8 @@ import Attr from "../attr/index.vue";
 import CustomMenu from "@/components/customMenu/index.vue";
 import useSize from "@/hooks/useSize";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import templates from "@/consts/templates";
 
 export default defineComponent({
   name: "Main",
@@ -37,18 +39,40 @@ export default defineComponent({
   setup() {
     const { wraperHeight } = useSize();
     const store = useStore();
+    const {
+      currentRoute: {
+        value: {
+          params: { id },
+        },
+      },
+    } = useRouter();
+
+    const getCurrentCanvas = (id: string): any => {
+      const currentCanvas = templates?.find((item: any) => item?.id === id);
+      return currentCanvas;
+    };
+
+    const setCurrentCanvas = (currentCanvas: any) => {
+      const { state } = store;
+      state.width = currentCanvas?.width ?? 375;
+      state.height = currentCanvas?.height ?? 667;
+      state.components = currentCanvas?.components ?? [];
+      state.canvasBg = currentCanvas?.canvasBg ?? "#fff";
+    };
+
+    id && setCurrentCanvas(getCurrentCanvas(id as string));
 
     const state = reactive<{
       listVisible: boolean;
     }>({
-      listVisible: false,
+      listVisible: true,
     });
 
     const selectHandle = (listVisible: boolean): void => {
       state.listVisible = listVisible;
     };
 
-    const editHandle = () => {
+    const editHandle = (): void => {
       store.commit("set_isPreview", false);
     };
 
@@ -69,19 +93,25 @@ export default defineComponent({
   flex-direction: column;
   overflow: hidden;
 }
-.canclePreview {
+.pre-btn {
   position: fixed;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   text-align: center;
-  line-height: 50px;
-  background: rgba(0, 0, 0, 0.5);
-  top: 10px;
-  right: 10px;
+  line-height: 60px;
+  background: rgba(64, 158, 255, 0.9);
   z-index: 9;
   color: #fff;
   border-radius: 50%;
   font-size: 12px;
   cursor: pointer;
+  right: 10px;
+  font-size: 12px;
+}
+.canclePreview {
+  top: 10px;
+}
+.createImg {
+  top: 80px;
 }
 </style>
