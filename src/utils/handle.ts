@@ -6,8 +6,9 @@ export const clickHandle = (data: listTypes): void => {
     state: { components },
   } = store;
   const { events } = data;
+  // 属性
   const relationEl = events?.onClick?.relationEl ?? [];
-  relationEl.map((item: any) => {
+  relationEl.length && relationEl.map((item: any) => {
     const component: any = components.find(
       (com: listTypes) => com?.uuid === item?.uuid
     );

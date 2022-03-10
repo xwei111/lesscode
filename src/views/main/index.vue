@@ -1,13 +1,13 @@
 <template>
   <div class="main">
-    <Header @selectHandle="selectHandle" v-show="!store.state.isPreview" />
+    <Header @selectHandle="selectHandle" />
     <Edit />
     <List :height="wraperHeight" :visible="listVisible" />
     <Attr :height="wraperHeight" />
     <CustomMenu />
     <div
       class="pre-btn canclePreview"
-      v-show="store.state.isPreview"
+      v-show="state.isPreview"
       @click="editHandle"
     >
       编辑
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, provide, reactive, toRefs } from "vue";
 import Header from "../header/index.vue";
 import Edit from "../edit/index.vue";
 import List from "../list/index.vue";
@@ -25,7 +25,8 @@ import CustomMenu from "@/components/customMenu/index.vue";
 import useSize from "@/hooks/useSize";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import templates from "@/consts/templates";
+import useTemList from "@/hooks/useTemList";
+import useAction from "@/hooks/useAction";
 
 export default defineComponent({
   name: "Main",
@@ -38,50 +39,60 @@ export default defineComponent({
   },
   setup() {
     const { wraperHeight } = useSize();
-    const store = useStore();
+    const { state, commit } = useStore();
+    const { addAction } = useAction();
     const {
       currentRoute: {
         value: {
-          params: { id },
+          params: { type, id },
         },
       },
     } = useRouter();
 
-    const getCurrentCanvas = (id: string): any => {
-      const currentCanvas = templates?.find((item: any) => item?.id === id);
-      return currentCanvas;
-    };
+    provide("type", type);
+    provide("id", id);
 
-    const setCurrentCanvas = (currentCanvas: any) => {
-      const { state } = store;
-      state.width = currentCanvas?.width ?? 375;
-      state.height = currentCanvas?.height ?? 667;
-      state.components = currentCanvas?.components ?? [];
-      state.canvasBg = currentCanvas?.canvasBg ?? "#fff";
-    };
-
-    id && setCurrentCanvas(getCurrentCanvas(id as string));
-
-    const state = reactive<{
+    const data = reactive<{
       listVisible: boolean;
     }>({
       listVisible: true,
     });
 
+    const { _getTemLists, _getWorkList } = useTemList((dataSource): void => {
+      setCurrentCanvas(dataSource?.[0] ?? {});
+    });
+
+    const setCurrentCanvas = (currentCanvas: any): void => {
+      state.width = currentCanvas?.width ?? 375;
+      state.height = currentCanvas?.height ?? 667;
+      state.components = currentCanvas?.components ?? [];
+      state.canvasBg = currentCanvas?.canvasBg ?? "#fff";
+      addAction();
+    };
+
+    id &&
+      type &&
+      type !== "mine" &&
+      _getTemLists({ type: type as string, id: id as string });
+    id &&
+      type &&
+      type === "mine" &&
+      _getWorkList({ userId: state?.userInfo?.userId, id: id as string });
+
     const selectHandle = (listVisible: boolean): void => {
-      state.listVisible = listVisible;
+      data.listVisible = listVisible;
     };
 
     const editHandle = (): void => {
-      store.commit("set_isPreview", false);
+      commit("set_isPreview", false);
     };
 
     return {
-      store,
+      state,
       editHandle,
-      ...toRefs(state),
       selectHandle,
       wraperHeight,
+      ...toRefs(data),
     };
   },
 });

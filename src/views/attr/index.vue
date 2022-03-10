@@ -84,9 +84,11 @@ export default defineComponent({
       .el-tab-pane {
         flex: 1;
         padding-bottom: 20px;
+        overflow-x: hidden;
         .attr-scroll {
           flex: 1;
           padding: 0 20px;
+          overflow-x: hidden;
         }
       }
     }

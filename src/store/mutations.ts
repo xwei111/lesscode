@@ -93,6 +93,17 @@ const mutations = {
   [types.set_left](state: { [key: string]: any }, left: number): void {
     state.left = left;
   },
+  // 登录
+  [types.set_loginVisible](
+    state: { [key: string]: any },
+    loginVisible: boolean
+  ): void {
+    state.loginVisible = loginVisible;
+  },
+  // 用户信息
+  [types.set_userInfo](state: { [key: string]: any }, userInfo: boolean): void {
+    state.userInfo = userInfo;
+  },
 };
 
 export default mutations;

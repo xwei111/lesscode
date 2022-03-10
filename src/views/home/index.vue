@@ -1,23 +1,23 @@
 <template>
   <div class="header">
     <div class="header-logo">LessCode</div>
-    <div class="header-login" @click="loginHandle">登录</div>
+    <User />
   </div>
   <div class="templates-box">
     <div class="templates-cnotent">
-      <el-tabs
-        v-model="currentTab"
-        @tab-click="tabClick"
-        class="templates-content"
-      >
-        <el-tab-pane label="我的" name="mine">
-          <el-scrollbar class="templates-scroll">
-            <List :dataSource="dataSource" :currentTab="currentTab" />
-          </el-scrollbar>
-        </el-tab-pane>
+      <el-tabs v-model="type" @tab-click="tabClick" class="templates-content">
         <el-tab-pane label="海报" name="poster">
           <el-scrollbar class="templates-scroll">
-            <List :dataSource="dataSource" :currentTab="currentTab" />
+            <List :dataSource="dataSource" :type="type" />
+          </el-scrollbar>
+        </el-tab-pane>
+        <el-tab-pane label="我的" name="mine">
+          <el-scrollbar class="templates-scroll">
+            <List
+              :dataSource="dataSource"
+              :type="type"
+              @successHandle="successHandle"
+            />
           </el-scrollbar>
         </el-tab-pane>
       </el-tabs>
@@ -25,47 +25,71 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs, watch } from "vue";
 import List from "./list.vue";
-import templates from "@/consts/templates";
+import User from "./user.vue";
+import { useStore } from "vuex";
+import useTemList from "@/hooks/useTemList";
 
 export default defineComponent({
   components: {
     List,
+    User,
   },
   setup() {
+    const { state } = useStore();
     const data = reactive<{
-      currentTab: string;
+      type: string;
       dataSource: Array<any>;
     }>({
-      currentTab: "mine",
+      type: "poster",
       dataSource: [],
     });
+
+    const { _getTemLists, _getWorkList } = useTemList((dataSource) => {
+      data.dataSource = dataSource ?? [];
+    });
+    // 未登录不切换tab
+    watch(
+      () => data.type,
+      (newVal, oldVal) => {
+        if (
+          newVal === "mine" &&
+          (!state?.userInfo ||
+            !state?.userInfo?.user ||
+            !state?.userInfo?.token)
+        ) {
+          setTimeout(() => (data.type = oldVal), 0);
+        }
+      }
+    );
+    // 退出登录且tab为我的时，清空数据
+    watch(
+      () => state.userInfo.token,
+      (newVal) => {
+        if (!newVal && data.type === "mine") {
+          data.dataSource = [];
+        }
+      }
+    );
+    // 初始化数据
+    _getTemLists({ type: data.type });
 
     const tabClick = (e: any): void => {
       const {
         props: { name },
       } = e;
-      data.dataSource =
-        name === "mine"
-          ? []
-          : [
-              ...templates,
-              ...templates,
-              ...templates,
-              ...templates,
-              ...templates,
-              ...templates,
-            ];
+      name === "mine" && _getWorkList({ userId: state?.userInfo?.userId });
+      name !== "mine" && _getTemLists({ type: name });
     };
 
-    const loginHandle = (): void => {
-      alert("敬请期待");
+    const successHandle = () => {
+      _getWorkList({ userId: state?.userInfo?.userId });
     };
 
     return {
       tabClick,
-      loginHandle,
+      successHandle,
       ...toRefs(data),
     };
   },
@@ -76,11 +100,6 @@ export default defineComponent({
 .header-logo {
   line-height: 50px;
   font-size: 20px;
-}
-.header-login {
-  line-height: 50px;
-  color: #409eff;
-  cursor: pointer;
 }
 .templates-box {
   flex: 1;

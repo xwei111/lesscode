@@ -14,3 +14,5 @@ export const set_height = "set_height";
 export const set_canvasBg = "set_canvasBg";
 export const set_top = "set_top";
 export const set_left = "set_left";
+export const set_loginVisible = "set_loginVisible";
+export const set_userInfo = "set_userInfo";

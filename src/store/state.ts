@@ -13,6 +13,8 @@ const state = {
   canvasBg: "#ffffff",
   top: 0,
   left: 0,
+  loginVisible: false,
+  userInfo: {},
 };
 
 export default state;

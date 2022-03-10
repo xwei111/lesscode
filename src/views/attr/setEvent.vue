@@ -35,7 +35,7 @@
                 </el-select>
                 <el-input
                   style="width: 100%"
-                  v-else
+                  v-if="el?.attrList[attr]?.type === 'input'"
                   v-model="el[attr]"
                   @change="addAction"
                 />
@@ -87,7 +87,11 @@ export default defineComponent({
     const modalRef = ref<any>();
     const attrModalRef = ref<any>();
     watch(
-      [() => state.attrVisible, () => state.uuid, () => state.actionIndex],
+      [
+        () => state.attrVisible,
+        () => state.uuid,
+        () => state.actionIndex
+      ],
       ([visible, uuid]) => {
         if (visible) {
           const { components } = state;
@@ -135,9 +139,9 @@ export default defineComponent({
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 10px;
-  width: 260px;
+  width: 218px;
   .event-item-uuid {
-    width: 230px;
+    width: 198px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

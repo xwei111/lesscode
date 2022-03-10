@@ -58,12 +58,16 @@ export default defineComponent({
     });
 
     watch(
-      [() => state.attrVisible, () => state.uuid, () => state.actionIndex],
-      ([visible, uuid]) => {
+      [
+        () => state.attrVisible,
+        () => props.attrUuid,
+        () => state.actionIndex
+      ],
+      ([visible, attrUuid]) => {
         if (visible) {
           const { components } = state;
           const component: listTypes | any =
-            components.find((item: listTypes) => item.uuid === uuid) ?? {};
+            components.find((item: listTypes) => item.uuid === attrUuid) ?? {};
           const { key, attr } = component;
           if (key) {
             // 动态引入部署服务器导致资源找不到，我人傻了

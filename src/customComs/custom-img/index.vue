@@ -1,8 +1,9 @@
 <template>
-  <img ref="customImg" :src="attr?.imgUrl" />
+  <img ref="customImg" :src="url" />
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from "vue";
+import { computed, defineComponent, onMounted, ref, watch } from "vue";
+import { assetsUrl } from "@/consts";
 
 export default defineComponent({
   props: {
@@ -13,6 +14,12 @@ export default defineComponent({
   },
   setup(props: any) {
     const customImg = ref<any>();
+
+    const url = computed(() =>
+      props?.attr?.imgUrl?.indexOf("base64") > -1
+        ? props?.attr?.imgUrl
+        : `${assetsUrl}${props?.attr?.imgUrl}`
+    );
 
     onMounted(() => {
       const {
@@ -63,6 +70,7 @@ export default defineComponent({
 
     return {
       customImg,
+      url,
     };
   },
 });

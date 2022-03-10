@@ -15,3 +15,5 @@ export const height = (state: any): number => state.height;
 export const canvasBg = (state: any): string => state.canvasBg;
 export const top = (state: any): number => state.top;
 export const left = (state: any): number => state.left;
+export const loginVisible = (state: any): boolean => state.loginVisible;
+export const userInfo = (state: any): any => state.userInfo;

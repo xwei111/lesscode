@@ -7,15 +7,16 @@
     :colorDark="attr?.colorDark"
     :size="attr?.size"
     :backgroundColor="attr?.backgroundColor"
-    :logoSrc="attr?.logoSrc"
+    :logoSrc="url"
     :logoMargin="attr?.logoMargin"
     :logoScale="attr?.logoScale"
   >
   </vue-qr>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import vueQr from "vue-qr/src/packages/vue-qr.vue";
+import { assetsUrl } from "@/consts";
 
 export default defineComponent({
   components: {
@@ -26,6 +27,19 @@ export default defineComponent({
       type: Object,
       default: () => ({}),
     },
+  },
+  setup(props: any) {
+    const url = computed(() =>
+      props?.attr?.imgUrl
+        ? props?.attr?.imgUrl?.indexOf("base64") > -1
+          ? props?.attr?.imgUrl
+          : `${assetsUrl}${props?.attr?.imgUrl}`
+        : ""
+    );
+
+    return {
+      url,
+    };
   },
 });
 </script>

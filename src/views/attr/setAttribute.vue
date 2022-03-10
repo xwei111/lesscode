@@ -30,13 +30,17 @@
       <Upload
         v-if="attrList?.[item]?.type === 'upload'"
         @click="() => selectHandle(item)"
-        @onChange="onChange"
+        @successHandle="successHandle"
       >
         <div class="attr-upload">
           <img
             v-show="attr?.[item]"
             class="attr-upload-img"
-            :src="attr?.[item]"
+            :src="
+              attr?.[item].indexOf('base64') > -1
+                ? attr?.[item]
+                : assetsUrl + attr?.[item]
+            "
           />
           <div class="attr-upload-mark">
             <i class="el-icon-plus"></i>
@@ -84,6 +88,7 @@ import { useStore } from "vuex";
 import { listTypes } from "@/types";
 import useAction from "@/hooks/useAction";
 import customConsts from "@/consts/customConsts";
+import { assetsUrl } from "@/consts";
 
 export default defineComponent({
   components: {
@@ -137,19 +142,29 @@ export default defineComponent({
       data.currentAttrKey = key;
     };
 
-    const onChange = (file: any): void => {
+    const successHandle = (url: string): void => {
       const { components, uuid } = state;
       const component: listTypes | any =
         components.find((item: listTypes) => item.uuid === uuid) ?? {};
-      component.attr[data.currentAttrKey] = URL.createObjectURL(file?.raw);
-      addAction();
+      if (component) {
+        component.attr.imgUrl = url;
+        // base64无法处理大图片
+        // const render = new FileReader();
+        // render.onload = (e) => {
+        //   component.attr.imgUrl = e.target?.result;
+        //   // 图片转base64，应对后续本地图片保存后无法正常显示问题，另一个方案是将本地图片上传至服务器
+        //   addAction();
+        // };
+        // render.readAsDataURL(file?.raw);
+      }
     };
 
     return {
       state,
+      assetsUrl,
       addAction,
       selectHandle,
-      onChange,
+      successHandle,
       ...toRefs(data),
     };
   },
@@ -173,12 +188,11 @@ export default defineComponent({
   color: #409eff;
 }
 .attr-upload {
-  width: 120px;
-  max-height: 200px;
-  min-height: 30px;
+  width: 200px;
+  height: 200px;
   position: relative;
   .attr-upload-img {
-    width: 100%;
+    max-width: 200px;
     height: 100%;
   }
   .attr-upload-mark {

@@ -10,7 +10,7 @@
       <el-option
         v-for="item in components"
         :key="item.uuid"
-        :label="item.uuid"
+        :label="item.uuid === state.uuid ? '自身' : item.uuid"
         :value="item.uuid"
       >
       </el-option>
@@ -73,6 +73,7 @@ export default defineComponent({
 
     return {
       visible,
+      state,
       components,
       selectVal,
       sureHandle,

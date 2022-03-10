@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Main from "../views/main/index.vue";
 import Home from "../views/home/index.vue";
+import Project from "../views/project/index.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,9 +15,14 @@ const routes: Array<RouteRecordRaw> = [
     component: Main,
   },
   {
-    path: "/main/:id",
+    path: "/main/:type/:id",
     name: "MainId",
     component: Main,
+  },
+  {
+    path: "/project/:kind/:id",
+    name: "Project",
+    component: Project,
   },
 ];
 

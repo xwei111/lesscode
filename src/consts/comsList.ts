@@ -59,9 +59,8 @@ export const list: Array<listTypes> = [
     title: "图片",
     icon: "icon-tupian",
     attr: {
-      // 服务器图片生成图片时跨域，需服务器进行配置，暂用本地资源
       // imgUrl: 'https://cdn.qjdchina.com/static-pre/lesscode/img/start.jpg',
-      imgUrl: require("../assets/start.jpg"),
+      imgUrl: "/images/start.jpg",
       blur: 0,
       brightness: 100,
       contrast: 100,
@@ -80,6 +79,7 @@ export const list: Array<listTypes> = [
     },
     events: {},
   },
+  // 二维码
   {
     key: "qr",
     template: "custom-qr",

@@ -1,11 +1,14 @@
 import { useStore } from "vuex";
 import * as _ from "lodash";
 import { ElMessage } from "element-plus";
+// import useCheckLogin from "./useCheckLogin";
 
 export default (): any => {
+  // const { checkLogin } = useCheckLogin();
   const store = useStore();
   // 添加快照
   const addAction = (): void => {
+    // if (!checkLogin()) return;
     const {
       state: { actionIndex, actionComs, components },
       commit,
@@ -24,6 +27,7 @@ export default (): any => {
   };
   // 后退
   const backHandle = (): void => {
+    // if (!checkLogin()) return;
     const {
       state: { actionComs, actionIndex },
       commit,
@@ -38,6 +42,7 @@ export default (): any => {
   };
   // 前进
   const forwardHandle = (): void => {
+    // if (!checkLogin()) return;
     const {
       state: { actionComs, actionIndex },
       commit,
@@ -52,6 +57,7 @@ export default (): any => {
   };
   // 清空
   const clearHandle = (): void => {
+    // if (!checkLogin()) return;
     const { commit } = store;
     commit("set_actionIndex", 0);
     commit("set_resetActionComs", []);

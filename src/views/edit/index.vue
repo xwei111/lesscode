@@ -36,6 +36,7 @@ import { listTypes } from "@/types";
 import { v4 as uuidv4 } from "uuid";
 import * as _ from "lodash";
 import useAction from "@/hooks/useAction";
+// import useCheckLogin from "@/hooks/useCheckLogin";
 
 export default defineComponent({
   components: {
@@ -45,6 +46,7 @@ export default defineComponent({
   setup() {
     const { state, commit } = useStore();
     const { addAction } = useAction();
+    // const { checkLogin } = useCheckLogin();
     const dragoverHandle = (e: any): void => {
       e.preventDefault();
     };
@@ -52,6 +54,7 @@ export default defineComponent({
     // const left = ref<number>(0);
     // 鼠标放下添加组件信息
     const dropHandle = (e: any): void => {
+      // if (!checkLogin()) return;
       e.preventDefault();
       const { dataTransfer } = e;
       const key: string = dataTransfer.getData("key");

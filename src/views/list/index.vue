@@ -94,6 +94,7 @@ export default defineComponent({
       li {
         width: 100%;
         box-sizing: border-box;
+        cursor: move;
         .list-item-box {
           display: flex;
           flex-direction: column;
